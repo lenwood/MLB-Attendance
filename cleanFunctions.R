@@ -29,5 +29,6 @@ cleanDate <- function(df) {
   df$Day <- weekdays(df$Date, abbreviate=TRUE)
   df$Month <- months(df$Date, abbreviate=TRUE)
   df$tempDate <- NULL
+  df$year <- NULL
   df
 }
