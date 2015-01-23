@@ -1,5 +1,5 @@
 # remove boxscore
-removeBoxscore <- function(df) {
+removeBoxScore <- function(df) {
   df[,4] <- NULL
   df
 }
@@ -7,6 +7,13 @@ removeBoxscore <- function(df) {
 # remove extra headers
 removeColNames <- function(df) {
   newDF <- df[which(df$Rk != "Rk"),]
+}
+
+# remove away games
+removeAwayGames <- function(df) {
+  newDF <- df[which(df[,5] != "@"),]
+  newDF[,5] <- NULL
+  newDF
 }
 
 # remove commas from Attendance
@@ -30,5 +37,17 @@ cleanDate <- function(df) {
   df$Month <- months(df$Date, abbreviate=TRUE)
   df$tempDate <- NULL
   df$year <- NULL
+  df
+}
+
+# convert Streak to numeric data
+cleanStreak <- function(df) {
+ df$Streak <- ifelse(substring(df$Streak, 1, 1) == "+", nchar(df$Streak), -1*nchar(df$Streak))
+ df
+}
+
+# add the State
+addState <- function(df, state="NA") {
+  df$State <- state
   df
 }
