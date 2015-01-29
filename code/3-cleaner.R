@@ -73,12 +73,46 @@ cleaner <- function(df) {
   colnames(df)[11] <- "GamesBack"
   colnames(df)[12] <- "DayNight"
 
-  # convert variables to factors
+  # Playoffs need to be integer values
+  # Wild Card game = (A|N)LWC Game 1
+  WC <- gsub("(A|N)LWC Game 1", "201", df$Game)
+
+  # Division Series
+  DS1 <- gsub("(A|N)LDS Game 1", "301", WC)
+  DS2 <- gsub("(A|N)LDS Game 2", "302", DS1)
+  DS3 <- gsub("(A|N)LDS Game 3", "303", DS2)
+  DS4 <- gsub("(A|N)LDS Game 4", "304", DS3)
+  DS5 <- gsub("(A|N)LDS Game 5", "305", DS4)
+
+  # Championship Series
+  CS1 <- gsub("(A|N)LCS Game 1", "401", DS5)
+  CS2 <- gsub("(A|N)LCS Game 2", "402", CS1)
+  CS3 <- gsub("(A|N)LCS Game 3", "403", CS2)
+  CS4 <- gsub("(A|N)LCS Game 4", "404", CS3)
+  CS5 <- gsub("(A|N)LCS Game 5", "405", CS4)
+  CS6 <- gsub("(A|N)LCS Game 6", "406", CS5)
+  CS7 <- gsub("(A|N)LCS Game 7", "407", CS6)
+
+  # World Series
+  WS1 <- gsub("WS Game 1", "501", CS7)
+  WS2 <- gsub("WS Game 2", "502", WS1)
+  WS3 <- gsub("WS Game 3", "503", WS2)
+  WS4 <- gsub("WS Game 4", "504", WS3)
+  WS5 <- gsub("WS Game 5", "505", WS4)
+  WS6 <- gsub("WS Game 6", "506", WS5)
+  df$Game <- as.integer(gsub("WS Game 7", "507", WS6))
+
+  # change rank to integer values
+  df$Rank <- as.integer(df$Rank)
+  df$Rank[is.na(df$Rank)] <- 0
+
+  # convert variables to appropriate type
   df$Day <- as.factor(df$Day)
   df$Month <- as.factor(df$Month)
   df$Team <- as.factor(df$Team)
   df$Opp <- as.factor(df$Opp)
   df$Outcome <- as.factor(df$Outcome)
+  df$DayNight <- as.factor(df$DayNight)
   df$State <- as.factor(df$State)
   df$Stadium <- as.factor(df$Stadium)
 
