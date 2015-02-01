@@ -43,6 +43,8 @@ library("randomForest")
 rfFit <- randomForest(Attendance ~ ., data=train)
 save(rfFit, file="data/models/rfFit.rda")
 
-# support vector machine
-
 # gradient boosted machine
+library("gbm")
+gbmFit <- gbm(Attendance ~ ., train, distribution="gaussian", n.trees=5000,
+              cv.folds=10, interaction.depth=9)
+save(gbmFit, file="data/models/gbmFit.rda")

@@ -28,3 +28,8 @@ load("data/models/predict.rf.rda")
 rf.RMSE <- RMSE(rfPredict, actual)
 rf.R2 <- Rsquare(rfPredict, actual)
 rm(rfPredict)
+
+load("data/models/predict.gbm.rda")
+gbm.RMSE <- RMSE(gbmPredict, actual)
+gbm.R2 <- Rsquare(gbmPredict, actual)
+rm(gbmPredict)
