@@ -16,7 +16,7 @@ rfPredict <- predict(rfFit, test)
 rm(rfFit)
 save(rfPredict, file="data/models/predict.rf.rda")
 
-lead("data/models/gbmFit.rda")
+load("data/models/gbmFit.rda")
 gbmPredict <- predict(gbmFit, test)
 rm(gbmFit)
 save(gbmPredict, file="data/models/predict.gbm.rda")
