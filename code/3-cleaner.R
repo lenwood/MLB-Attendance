@@ -116,7 +116,21 @@ cleaner <- function(df) {
   df$State <- as.factor(df$State)
   df$Stadium <- as.factor(df$Stadium)
 
+  # reset the order of data frame
   df <- df[order(df$Year, df$Team, df$Game),]
+  
+  # remove incomplete cases (there are only 3)
+  df <- df[complete.cases(df),]
+  
+  # remove irrelevant variables
+  df$Date <- NULL
+  df$Year <- NULL
+  df$Outcome <- NULL
+  df$State <- NULL
+  df$Stadium <- NULL
+  
+  # remove blank DayNight factor
+  levels(df$DayNight)[1] <- NA
 
   rownames(df) <- NULL
   

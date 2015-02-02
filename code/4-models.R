@@ -1,16 +1,5 @@
 load("data/clean/MLBgames.rda")
 
-# remove incomplete cases
-MLBgames <- MLBgames[complete.cases(MLBgames),]
-
-# remove irrelevant variables
-MLBgames$Date <- NULL
-MLBgames$Year <- NULL
-MLBgames$Outcome <- NULL
-MLBgames$State <- NULL
-MLBgames$Stadium <- NULL
-levels(MLBgames$DayNight)[1] <- NA
-
 # split into test, train & validate
 set.seed(42)
 index <- sample(1:nrow(MLBgames), nrow(MLBgames)/5, replace=FALSE)
@@ -40,7 +29,7 @@ save(dtreeFit, file="data/models/dtreeFit.rda")
 
 # random forest
 library("randomForest")
-rfFit <- randomForest(Attendance ~ ., data=train)
+rfFit <- randomForest(Attendance ~ ., data=train, mtry=3, ntree=2000)
 save(rfFit, file="data/models/rfFit.rda")
 
 # gradient boosted machine
