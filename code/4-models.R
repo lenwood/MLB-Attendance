@@ -29,7 +29,7 @@ save(dtreeFit, file="data/models/dtreeFit.rda")
 
 # random forest
 library("randomForest")
-rfFit <- randomForest(Attendance ~ ., data=train, mtry=3, ntree=2000)
+rfFit <- randomForest(Attendance ~ ., data=train, mtry=3, ntree=1000)
 save(rfFit, file="data/models/rfFit.rda")
 
 # gradient boosted machine
