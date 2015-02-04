@@ -15,25 +15,25 @@ save(test, file="data/clean/test.rda")
 save(validate, file="data/clean/validate.rda")
 rm(test, validate)
 
+# load packages
+pkgs <- c("caret", "gbm", "randomForest", "rpart")
+lapply(pkgs, library, character.only=TRUE)
+
 # regression
-library("caret")
 lmControl <- trainControl(method="cv", number=10)
 lmFit <- train(Attendance ~ ., data=train, method="lm", trControl=lmControl)
 rm(lmControl)
 save(lmFit, file="data/models/lmFit.rda")
 
 # decision trees (rpart)
-library("rpart")
 dtreeFit <- rpart(Attendance ~ ., data=train, method="anova", control=rpart.control(cp=0.0001, xval=10))
 save(dtreeFit, file="data/models/dtreeFit.rda")
 
-# random forest
-library("randomForest")
-rfFit <- randomForest(Attendance ~ ., data=train, mtry=3, ntree=1000)
-save(rfFit, file="data/models/rfFit.rda")
-
 # gradient boosted machine
-library("gbm")
 gbmFit <- gbm(Attendance ~ ., train, distribution="gaussian", n.trees=5000,
               cv.folds=10, interaction.depth=9)
 save(gbmFit, file="data/models/gbmFit.rda")
+
+# random forests
+rfFit <- randomForest(Attendance ~ ., data=train, mtry=3, ntree=1000)
+save(rfFit, file="data/models/rfFit.rda")
