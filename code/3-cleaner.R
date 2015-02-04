@@ -132,6 +132,9 @@ cleaner <- function(df) {
   # remove blank DayNight factor
   levels(df$DayNight)[1] <- NA
 
+  # remove all rows with 0 attendance
+  df <- df[which(df$Attendance != 0),]
+
   rownames(df) <- NULL
   
   df
