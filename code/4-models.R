@@ -18,6 +18,7 @@ rm(test, validate)
 # load packages
 pkgs <- c("caret", "gbm", "randomForest", "rpart")
 lapply(pkgs, library, character.only=TRUE)
+rm(pkgs)
 
 # regression
 lmControl <- trainControl(method="cv", number=10)
